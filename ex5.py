@@ -49,7 +49,7 @@ else:
 
 cities = []
 for city in range(5):
-    cities.insert(0, input("Enter city name: "))
-cities2 = cities.copy()
+    cities.insert(0, input("Enter city name: "))   # cities.append(input("Enter city name: "))
+cities2 = cities.copy()                             # skip
 for item in cities:
-    print(cities2.pop())
+    print(cities2.pop())                           # print(item)
