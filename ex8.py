@@ -1,4 +1,5 @@
 import mariadb
+from geopy import distance
 
 connection = mariadb.connect(
     host='127.0.0.1',
@@ -15,18 +16,18 @@ connection = mariadb.connect(
 # stored in the ident column of the airport table.
 
 
-# def airport_name_and_location(icao):
-#     sql = "SELECT name, municipality FROM airport WHERE airport.ident = '" + icao + "'"
-#
-#     cursor = connection.cursor()
-#     cursor.execute(sql)
-#     result = cursor.fetchall()
-#     print(result)
-#     return
-#
-#
-# user_input = input("Enter ICAO code of the airport: ").upper()
-# airport_name_and_location(user_input)
+def airport_name_and_location(icao):
+    sql = "SELECT name, municipality FROM airport WHERE airport.ident = '" + icao + "'"
+
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    print(result)
+    return
+
+
+user_input = input("Enter ICAO code of the airport: ").upper()
+airport_name_and_location(user_input)
 
 
 # 2.Write a program that asks the user to enter the area code (for example FI) and prints out the airports located in
@@ -63,14 +64,26 @@ for ind, tuple_ in enumerate(values):  # Printing amount of each airport type
 
 
 # 3.
-# data received as set, or dictionary, write f"" and target indexes
-
 # Write a program that asks the user to enter the ICAO codes of two airports. The program prints out the distance
 # between the two airports in kilometers. The calculation is based on the airport coordinates fetched from the database.
-# Calculate the distance using the geopy library: https://geopy.readthedocs.io/en/stable/. Install the library by
-# selecting View / Tool Windows / Python Packages in your PyCharm IDE, write geopy into the search field and finish the
-# installation.
+# Calculate the distance using the geopy library: https://geopy.readthedocs.io/en/stable/.
+
+def distance_calc(airport_icao):
+    sql_air_coords = "SELECT latitude_deg, longitude_deg from airport where ident = '" + airport_icao + "';"
+    cursor = connection.cursor()
+    cursor.execute(sql_air_coords)
+    airport_coordinates = cursor.fetchall()
+    return airport_coordinates
 
 
-# fetch coordinates (x, y) - (x, y)
-# pip install geopy
+while True:
+    airport1 = input("Enter ICAO code of the first airport: ").upper()
+    airport2 = input("Enter ICAO code of the second airport: ").upper()
+    coords_air1 = distance_calc(airport1)
+    coords_air2 = distance_calc(airport2)
+    if len(coords_air1) == 0 or len(coords_air2) == 0:
+        print("Data not found. Please check if both of ICAO codes are correct")
+        continue
+    else:
+        print(f"Distance between {airport1} and {airport2} is {distance.distance(coords_air1, coords_air2).km:.2f} km")
+    break
