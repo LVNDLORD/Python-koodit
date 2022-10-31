@@ -31,15 +31,19 @@ class Elevator:
 
 class Buildings:
 
-    def __init__(self, bottom_floor, top_floor, num_elevators=0):
-        # self.top_floor = top_floor
-        # self.bottom_floor = bottom_floor
+    def __init__(self, bottom_floor, top_floor, num_elevators):
+        self.top_floor = top_floor
+        self.bottom_floor = bottom_floor
         self.num_elevators = num_elevators
-        elevators_list = list(range(1, num_elevators + 1))  # 1 2 3 4
+        self.elevators_list = []
+        for i in range(num_elevators):
+            self.elevators_list.append(Elevator(self.bottom_floor, self.top_floor))
+        print(self.elevators_list)
 
     def run_elevator(self, selected_el, destination):
+        self.elevators_list[selected_el-1].go_to_floor(destination)
 
-        self.destination = destination
+
 
 
 if __name__ == '__main__':
@@ -48,3 +52,6 @@ if __name__ == '__main__':
     h.go_to_floor(5)
     h.go_to_floor(h.bottom_floor)
     h.__str__()
+
+    build = Buildings(1, 6, 3)
+    build.run_elevator(2, 5)
