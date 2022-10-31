@@ -63,12 +63,12 @@ if __name__ == '__main__':
     while not race.race_finished():
         race.hours_race += 1
         if race.hours_race % 10 == 0:
-            print()
-            print(f"{race.hours_race} hours of race passed")
-            print()
             race.print_status()
+            print(f"\n{race.hours_race} hours of race passed")
+            print()
         else:
             race.hours_passes()
 
-    print(f"\nRace {race.name} lasted for {race.hours_race} h. The winner is {race.winner}!")
+    print(f"Race {race.name} lasted for {race.hours_race} h. The winner is {race.winner}!")
+    print("\nfinal Stats")
     race.print_status()
