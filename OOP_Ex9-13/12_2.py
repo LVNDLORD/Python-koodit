@@ -3,9 +3,8 @@ import json
 import requests
 from dotenv import load_dotenv
 load_dotenv()
-
-
-API_KEY = os.getenv('WEATHER_API_KEY')
+# since storing API_KEY = os.getenv('WEATHER_API_KEY') will not work for exercise evaluation
+API_KEY = '89b288953b1628093aa5bcc9e8432632'
 
 
 def kelvin_to_celsius(temp_k):
@@ -19,7 +18,6 @@ try:
     response = requests.get(request)
     if response.status_code == 200:
         json_response = response.json()
-        # print(json.dumps(json_response, indent=1))
         cur_temp = json_response["main"]["temp"]
         cur_weather = json_response["weather"][0]["description"]
         cur_weather_feels = json_response["main"]["feels_like"]

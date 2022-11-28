@@ -1,4 +1,3 @@
-"""
 
 class Elevator:
     def __init__(self, bottom_floor, top_floor):
@@ -26,12 +25,9 @@ class Elevator:
                 self.floor_down()
 
 
-
-
 if __name__ == '__main__':
 
     h = Elevator(1, 6)
     h.go_to_floor(5)
     h.go_to_floor(h.bottom_floor)
     h.__str__()
-"""
